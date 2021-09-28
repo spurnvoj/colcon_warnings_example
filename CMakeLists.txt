@@ -9,10 +9,14 @@ add_definitions("-Wall")
 add_definitions("-Wextra")
 add_definitions("-Wpedantic")
 add_definitions("-g")
-# add_definitions("-O3") # because normal Release build is just -O2
+add_definitions("-O3") # because normal Release build is just -O2
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+
+include_directories(
+  include
+)
 
 ## --------------------------------------------------------------
 ## |                            build                           |
@@ -26,15 +30,28 @@ ament_target_dependencies(example
   rclcpp
   )
 
+add_library(include_example SHARED
+  src/include_example.cpp
+  )
+
+ament_target_dependencies(include_example
+  rclcpp
+  )
+
 ## --------------------------------------------------------------
 ## |                           install                          |
 ## --------------------------------------------------------------
 
 install(TARGETS
   example
+  include_example
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
+)
+
+install(DIRECTORY include
+  DESTINATION include
 )
 
 ament_package()
