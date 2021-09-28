@@ -1,5 +1,4 @@
 #include <rclcpp/rclcpp.hpp>
-#include <sstream>
 
 namespace ros2_examples
 {
